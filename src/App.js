@@ -46,8 +46,8 @@ class IssApiForm extends Component {
       this.state.latitude.toString() +
       "&lon=" +
       this.state.longitude.toString() +
-      "&alt=" +
-      (this.state.altitude + 1).toString() +    //adding 1 to prevent API error for alt=0
+      // "&alt=" +
+      // (this.state.altitude + 1).toString() +    // eliminating this due to unexpected API behavior
       "&n=" +
       this.state.number.toString()
       )
@@ -90,7 +90,7 @@ class IssApiForm extends Component {
                 max="180"
               />
             </label>
-            <br />
+            {/* <br />  // Removing due to unexpected API behavior
             <label>
               Altitude:
               <input
@@ -102,7 +102,7 @@ class IssApiForm extends Component {
                 min="0"
                 max="45000"
               />
-            </label>
+            </label> */}
             <br />
             <label>
               Number of passovers:

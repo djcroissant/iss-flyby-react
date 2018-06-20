@@ -2,22 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// function InputElement(props) {
-//   return (
-//     <label for={props.id}>{props.label}</label>
-//     <input id={props.id} type="number" name={props.name} />
-//   );
-// }
-//
-// function InputSet(props) {
-//   return (
-//     <div className="UserInput">
-//       <InputElement id="latitude" label="Latitude:" name="latitude" />
-//
-//     </div>
-//   );
-// }
-
 class Header extends Component {
   render() {
     return (
@@ -119,6 +103,38 @@ class IssApiForm extends Component {
   }
 }
 
+function FlybyRows(props) {
+  const flybys = props.response;
+  const flybyRows = flybys.map((flyby) =>
+    <tr>
+      <td>{flyby.risetime}</td>
+      <td>{flyby.duration}</td>
+    </tr>
+  );
+  return (
+    <tbody>
+      {flybyRows}
+    </tbody>
+  );
+}
+
+function FlybyTable(props) {
+  const response = [
+    {"risetime": "time1", "duration": "duration1"},
+    {"risetime": "time2", "duration": "duration2"},
+  ];
+  return (
+    <table>
+      <thead>
+      <tr>
+        <th>Rise Time</th>
+        <th>Duration</th>
+      </tr>
+      </thead>
+      <FlybyRows response={response}/>
+    </table>
+  );
+}
 
 class App extends Component {
   render() {
@@ -126,6 +142,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <IssApiForm />
+        <FlybyTable />
       </div>
     );
   }

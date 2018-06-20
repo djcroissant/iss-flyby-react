@@ -106,7 +106,7 @@ class IssApiForm extends Component {
 function FlybyRows(props) {
   const flybys = props.response;
   const flybyRows = flybys.map((flyby) =>
-    <tr>
+    <tr key={flyby.risetime.toString()}>
       <td>{flyby.risetime}</td>
       <td>{flyby.duration}</td>
     </tr>

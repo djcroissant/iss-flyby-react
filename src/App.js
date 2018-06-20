@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './images/iss.png';
 import './App.css';
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
+        <h1 className="App-title">When to spot the International Space Station</h1>
       </header>
     );
   }
@@ -62,6 +62,7 @@ class IssApiForm extends Component {
   render() {
     return (
       <div className="content">
+        <h3>Enter your latitude/longitude and the number of upcoming passovers you'd like to see (up to 100)</h3>
         <div className="iss-form">
           <form onSubmit={this.handleSubmit}>
             <label>

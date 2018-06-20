@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
 
 class Header extends Component {
   render() {
@@ -39,6 +40,17 @@ class IssApiForm extends Component {
 
   handleSubmit(event) {
     console.log('The form was submitted');
+    axios.get(
+      "http://api.open-notify.org/iss-pass.json?lat=" +
+      this.state.latitude.toString() +
+      "&lon=" +
+      this.state.longitude.toString() +
+      "&alt=" +
+      (this.state.altitude + 1).toString() +    //adding 1 to prevent API error for alt=0
+      "&n=" +
+      this.state.number.toString()
+      )
+      .then(response => console.log(response))
     event.preventDefault();
   }
 
@@ -50,7 +62,7 @@ class IssApiForm extends Component {
           <input
             name="latitude"
             type="number"
-            value={this.state.value}
+            value={this.state.latitude}
             onChange={this.handleChange}
             step="0.00001"
             min="0"
@@ -63,7 +75,7 @@ class IssApiForm extends Component {
           <input
             name="longitude"
             type="number"
-            value={this.state.value}
+            value={this.state.longitude}
             onChange={this.handleChange}
             step="0.00001"
             min="-180"
@@ -76,7 +88,7 @@ class IssApiForm extends Component {
           <input
             name="altitude"
             type="number"
-            value={this.state.value}
+            value={this.state.altitude}
             onChange={this.handleChange}
             step="1"
             min="0"
@@ -89,7 +101,7 @@ class IssApiForm extends Component {
           <input
             name="number"
             type="number"
-            value={this.state.value}
+            value={this.state.number}
             onChange={this.handleChange}
             step="1"
             min="0"

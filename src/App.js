@@ -52,7 +52,6 @@ class IssApiForm extends Component {
       this.state.number.toString()
       )
       .then(response => {
-        // console.log(response.data);
         this.setState({
           'flybys': response.data.response
         });
@@ -120,10 +119,12 @@ class IssApiForm extends Component {
             <input type="submit" value="Submit" />
           </form>
         </div>
-        <div className="flyby-table">
-          {this.state.flybys !== '' ?
-          <FlybyTable response={this.state.flybys} /> : null}
-        </div>
+        {this.state.flybys !== '' ?
+          <div className="flyby-table">
+            <hr />
+            <h2>Upcoming flyovers:</h2>
+            <FlybyTable response={this.state.flybys} />
+          </div> : null}
       </div>
     );
   }
@@ -139,11 +140,25 @@ class FlybyRows extends Component {
     return m.toString();
   }
 
+  ms_convert = function(milliseconds, type) {
+    const ms = parseInt(milliseconds);
+    const date = new Date(ms * 1000);
+    switch(type) {
+      case 'date':
+        return date.toLocaleDateString();
+      case 'time':
+        return date.toLocaleTimeString();
+      default:
+        return ''
+    }
+  }
+
   render() {
     const flybys = this.props.response;
     const flybyRows = flybys.map((flyby) =>
       <tr key={flyby.risetime.toString()}>
-        <td>{flyby.risetime}</td>
+        <td>{this.ms_convert(flyby.risetime, 'date')}</td>
+        <td>{this.ms_convert(flyby.risetime, 'time')}</td>
         <td>{this.s_to_min(flyby.duration)}</td>
       </tr>
     );
@@ -162,6 +177,7 @@ class FlybyTable extends Component {
         <table>
           <thead>
           <tr>
+            <th>Date</th>
             <th>Rise Time</th>
             <th>Duration (minutes)</th>
           </tr>

@@ -130,12 +130,21 @@ class IssApiForm extends Component {
 }
 
 class FlybyRows extends Component {
+  s_to_min = function(seconds) {
+    // takes number of seconds in string form
+    // converts to minutes and rounds to nearest whole number
+    // returns minutes in string form
+    const s = parseInt(seconds);
+    const m = Math.round(s / 60);
+    return m.toString();
+  }
+
   render() {
     const flybys = this.props.response;
     const flybyRows = flybys.map((flyby) =>
       <tr key={flyby.risetime.toString()}>
         <td>{flyby.risetime}</td>
-        <td>{flyby.duration}</td>
+        <td>{this.s_to_min(flyby.duration)}</td>
       </tr>
     );
     return (
@@ -154,7 +163,7 @@ class FlybyTable extends Component {
           <thead>
           <tr>
             <th>Rise Time</th>
-            <th>Duration</th>
+            <th>Duration (minutes)</th>
           </tr>
           </thead>
           <FlybyRows response={this.props.response}/>
